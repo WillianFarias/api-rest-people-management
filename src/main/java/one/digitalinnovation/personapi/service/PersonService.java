@@ -67,4 +67,7 @@ public class PersonService {
         return personRepository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
+
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) {
+    }
 }
