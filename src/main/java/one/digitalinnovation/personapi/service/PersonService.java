@@ -29,7 +29,7 @@ public class PersonService {
 
         Person savedPerson = personRepository.save(personToSave);
 
-        return createMessageResponse(savedPerson, "Create person with ID ");
+        return createMessageResponse(savedPerson.getId(), "Create person with ID ");
     }
 
 
@@ -69,15 +69,15 @@ public class PersonService {
 
         Person personToUpdate = personMapper.toModel(personDTO);
 
-        Person savedPerson = personRepository.save(personToUpdate);
+        Person updatePerson = personRepository.save(personToUpdate);
 
-        return createMessageResponse(savedPerson, "Update person with ID ");
+        return createMessageResponse(updatePerson.getId(), "Update person with ID ");
     }
 
-    private MessageResponseDTO createMessageResponse(Person savedPerson, String s) {
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
         return MessageResponseDTO
                 .builder()
-                .message(s + savedPerson.getId())
+                .message(message + id)
                 .build();
     }
 }
