@@ -5,6 +5,7 @@ Java11
 Maven 3.6.3
 Spring Boot 
 Heroku
+mapstruct https://mapstruct.org/
 SDK MAN https://sdkman.io/
 
 SDK MAN
