@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
@@ -30,10 +29,7 @@ public class PersonService {
 
         Person savedPerson = personRepository.save(personToSave);
 
-        return MessageResponseDTO
-                .builder()
-                .message("Create person with ID " + savedPerson.getId())
-                .build();
+        return createMessageResponse(savedPerson, "Create person with ID ");
     }
 
 
@@ -68,6 +64,20 @@ public class PersonService {
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
-    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) {
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        verifyIfExist(id);
+
+        Person personToUpdate = personMapper.toModel(personDTO);
+
+        Person savedPerson = personRepository.save(personToUpdate);
+
+        return createMessageResponse(savedPerson, "Update person with ID ");
+    }
+
+    private MessageResponseDTO createMessageResponse(Person savedPerson, String s) {
+        return MessageResponseDTO
+                .builder()
+                .message(s + savedPerson.getId())
+                .build();
     }
 }
