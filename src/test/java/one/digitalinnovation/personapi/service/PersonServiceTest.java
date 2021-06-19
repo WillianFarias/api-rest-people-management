@@ -3,6 +3,7 @@ package one.digitalinnovation.personapi.service;
 import one.digitalinnovation.personapi.dto.request.PersonDTO;
 import one.digitalinnovation.personapi.dto.response.MessageResponseDTO;
 import one.digitalinnovation.personapi.entity.Person;
+import one.digitalinnovation.personapi.mapper.PersonMapper;
 import one.digitalinnovation.personapi.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,9 @@ public class PersonServiceTest {
 
     @Mock
     private PersonRepository personRepository;
+
+    @Mock
+    private PersonMapper personMapper;
 
     @InjectMocks
     private PersonService personService;

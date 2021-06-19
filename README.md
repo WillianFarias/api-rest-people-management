@@ -7,6 +7,7 @@ Spring Boot
 Heroku
 mapstruct https://mapstruct.org/
 SDK MAN https://sdkman.io/
+Mock
 
 SDK MAN
 

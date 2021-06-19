@@ -34,8 +34,4 @@ public class PersonUtils {
                 .phones(Collections.singletonList(PhoneUtils.createFakeEntity()))
                 .build();
     }
-
-
-
-
 }
