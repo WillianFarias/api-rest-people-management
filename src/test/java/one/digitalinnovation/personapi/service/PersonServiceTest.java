@@ -12,12 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static one.digitalinnovation.personapi.utils.PersonUtils.createFakeDTO;
 import static one.digitalinnovation.personapi.utils.PersonUtils.createFakeEntity;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -65,6 +66,20 @@ public class PersonServiceTest {
                 .thenReturn(Optional.ofNullable(any(Person.class)));
 
         assertThrows(PersonNotFoundException.class, () -> personService.findById(invalidPersonId));
+    }
+
+    @Test
+    void testGivenNoDataThenReturnAllPeopleRegistered() {
+        List<Person> expectedRegisteredPeople = Collections.singletonList(createFakeEntity());
+        PersonDTO personDTO = createFakeDTO();
+        personDTO.setId(expectedRegisteredPeople.get(0).getId());
+
+        when(personRepository.findAll()).thenReturn(expectedRegisteredPeople);
+
+        List<PersonDTO> expectedPeopleDTOList = personService.listAll();
+
+        assertFalse(expectedPeopleDTOList.isEmpty());
+        assertEquals(expectedPeopleDTOList.get(0).getId(), personDTO.getId());
     }
 
 
