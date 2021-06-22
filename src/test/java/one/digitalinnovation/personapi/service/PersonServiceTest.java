@@ -19,7 +19,8 @@ import java.util.Optional;
 import static one.digitalinnovation.personapi.utils.PersonUtils.createFakeDTO;
 import static one.digitalinnovation.personapi.utils.PersonUtils.createFakeEntity;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {
@@ -82,5 +83,26 @@ public class PersonServiceTest {
         assertEquals(expectedPeopleDTOList.get(0).getId(), personDTO.getId());
     }
 
+    @Test
+    void testGivenValidPersonIdAndUpdateInfoThenReturnSuccessOnUpdate() throws PersonNotFoundException {
+        var updatePersonId = 2L;
 
+        PersonDTO updatePersonDTORequest = createFakeDTO();
+        updatePersonDTORequest.setId(updatePersonId);
+        updatePersonDTORequest.setLastName("Paleias updated");
+
+        Person expectedPersonToUpdate = createFakeEntity();
+        expectedPersonToUpdate.setId(updatePersonId);
+
+        Person expectedPersonUpdated = createFakeEntity();
+        expectedPersonUpdated.setId(updatePersonId);
+        expectedPersonToUpdate.setLastName(updatePersonDTORequest.getLastName());
+
+        when(personRepository.findById(updatePersonId)).thenReturn(Optional.of(expectedPersonUpdated));
+        when(personMapper.toModel(updatePersonDTORequest)).thenReturn(expectedPersonUpdated);
+
+        MessageResponseDTO successMessage = personService.updateById(updatePersonId, updatePersonDTORequest);
+
+        assertEquals("Update person with ID 2", successMessage.getMessage());
+    }
 }
