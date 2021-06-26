@@ -12,7 +12,7 @@ Tecnologias utilizadas
 * [SDKMan! para gerenciamento e instalação do Java e Maven](https://sdkman.io/)
 * Mock
 
-###Execução
+### Execução
 
 Para executar o projeto no terminal, digite o seguinte comando:
 
@@ -26,7 +26,7 @@ Após executar o comando acima, basta apenas abrir o seguinte endereço e visual
 http://localhost:8080/api/v1/people
 ```
 
-####Comandos SDKMan!
+#### Comandos SDKMan!
 
 Listar sdks
 ```
